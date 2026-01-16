@@ -1,37 +1,24 @@
 import { INewsArticle } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { CARD_SIZES, IMAGE_CONFIG, type CardSize } from "@/lib/constants";
 
 interface NewsCardProps {
   article: INewsArticle;
-  size?: "large" | "medium" | "small";
+  size?: CardSize;
 }
 
-const CARD_CONFIG = {
-  large: {
-    containerClass: "w-full lg:col-span-2",
-    imageHeight: "h-[199px] lg:h-[404px]",
-    showSummary: false,
-  },
-  medium: {
-    containerClass: "w-full",
-    imageHeight: "h-[199px]",
-    showSummary: false,
-  },
-  small: {
-    containerClass: "w-full",
-    imageHeight: "h-[199px]",
-    showSummary: false,
-  },
-} as const;
+interface ArticleImageProps {
+  article: INewsArticle;
+  height: string;
+  isPriority?: boolean;
+}
 
 const ArticleImage = ({
   article,
   height,
-}: {
-  article: INewsArticle;
-  height: string;
-}) => (
+  isPriority = false,
+}: ArticleImageProps) => (
   <div className={`relative w-full ${height} overflow-hidden`}>
     {article.image ? (
       <Image
@@ -39,8 +26,10 @@ const ArticleImage = ({
         alt={article.headline}
         fill
         className="object-cover brightness-75 transition-all group-hover:brightness-90"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        priority={false}
+        sizes={IMAGE_CONFIG.SIZES}
+        priority={isPriority}
+        loading={isPriority ? undefined : "lazy"}
+        quality={IMAGE_CONFIG.QUALITY}
       />
     ) : (
       <div className="flex h-full w-full items-center justify-center bg-zinc-800">
@@ -77,7 +66,8 @@ const ReadMoreLink = () => (
 );
 
 const NewsCard = ({ article, size = "medium" }: NewsCardProps) => {
-  const config = CARD_CONFIG[size];
+  const config = CARD_SIZES[size];
+  const isPriority = size === "large";
 
   return (
     <Link
@@ -86,7 +76,11 @@ const NewsCard = ({ article, size = "medium" }: NewsCardProps) => {
       rel="noopener noreferrer"
       className={`group overflow-hidden rounded-md transition-transform ${config.containerClass}`}
     >
-      <ArticleImage article={article} height={config.imageHeight} />
+      <ArticleImage
+        article={article}
+        height={config.imageHeight}
+        isPriority={isPriority}
+      />
 
       <div className="flex flex-col">
         <h2 className="font-roboto text-[24px] font-normal leading-[130%] tracking-[-0.04em] my-4">

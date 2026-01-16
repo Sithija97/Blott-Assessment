@@ -9,7 +9,7 @@ export async function getMarketNews(
     `${BASE_URL}/news?category=${category}&token=${process.env.FINNHUB_API_KEY}`,
     {
       next: {
-        revalidate: 300, // ISR: cache for 5 minutes
+        revalidate: 120,
       },
     }
   );

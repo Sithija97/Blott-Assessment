@@ -34,7 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable}  ${albra.variable} ${helveticaNow.variable} antialiased`}
+        className={`${roboto.variable}  ${albra.variable} ${
+          helveticaNow.variable
+        } antialiased ${
+          process.env.ENV === "development" ? "debug-screens" : ""
+        }`}
       >
         {children}
       </body>

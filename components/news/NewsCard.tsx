@@ -10,7 +10,7 @@ interface NewsCardProps {
 const CARD_CONFIG = {
   large: {
     containerClass: "w-full lg:col-span-2",
-    imageHeight: "h-[404px]",
+    imageHeight: "h-[199px] lg:h-[404px]",
     showSummary: false,
   },
   medium: {
@@ -51,27 +51,28 @@ const ArticleImage = ({
 );
 
 const ReadMoreLink = () => (
-  <div className="flex items-center text-sm font-medium text-white">
-    <span className="flex items-center gap-1">
+  <div className="flex items-start gap-1 text-sm font-medium text-white">
+    <span className="inline-flex flex-col">
       <p className="font-roboto text-[15px] font-normal leading-[100%] tracking-normal">
         Read Article
       </p>
-
-      <svg
-        className="h-4 w-4 transition-transform group-hover:translate-x-1"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 5l7 7-7 7"
-        />
-      </svg>
+      <span className="mt-1.75 h-px w-full bg-white"></span>
     </span>
+
+    <svg
+      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
   </div>
 );
 

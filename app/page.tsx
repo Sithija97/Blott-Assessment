@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full">
       <Image
         className="white:invert mt-11"
         src="https://cdn.prod.website-files.com/615dd49cfcfac745df0ff815/615dd49cfcfac72d4a0ff9cd_BLOTT_WHITE.svg"
@@ -13,6 +13,6 @@ export default function Home() {
         priority
       />
       <NewsContainer />
-    </main>
+    </div>
   );
 }

@@ -1,10 +1,10 @@
 import { INewsArticle } from "@/types/news";
 
-const BASE_URL = process.env.BASE_URL;
-
 export async function getMarketNews(
   category: string = "general"
 ): Promise<INewsArticle[]> {
+  const BASE_URL = process.env.BASE_URL;
+  
   const res = await fetch(
     `${BASE_URL}/news?category=${category}&token=${process.env.FINNHUB_API_KEY}`,
     {

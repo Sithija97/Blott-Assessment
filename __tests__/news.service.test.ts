@@ -36,7 +36,7 @@ describe("getMarketNews", () => {
       json: () => Promise.resolve(mockArticles),
     });
 
-    const result = await getMarketNews("general");
+    const result = await getMarketNews("general", 1);
 
     expect(fetch).toHaveBeenCalledWith(
       `https://mock.api/news?category=general&token=demo`,
@@ -44,7 +44,7 @@ describe("getMarketNews", () => {
         next: expect.objectContaining({ revalidate: 120 }),
       })
     );
-    expect(result).toEqual(mockArticles);
+    expect(result).toEqual(mockArticles.slice(0, 8));
   });
 
   it("throws when the API responds with an error", async () => {

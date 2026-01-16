@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import NewsContainer from "@/components/news/NewsContainer";
 import Image from "next/image";
+import NewsGridSkeleton from "@/components/news/NewsGridSkeleton";
 
 export default function Home() {
   return (

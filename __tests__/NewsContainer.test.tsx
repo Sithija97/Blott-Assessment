@@ -1,12 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
-import NewsContainer from "@/components/news/NewsContainer";
-import { getMarketNews } from "@/services/news.service";
+import InfiniteNewsGrid from "@/components/news/InfiniteNewsGrid";
 import type { INewsArticle } from "@/types";
-
-vi.mock("@/services/news.service", () => ({
-  getMarketNews: vi.fn(),
-}));
 
 const mockArticles: INewsArticle[] = [
   {
@@ -23,16 +18,11 @@ const mockArticles: INewsArticle[] = [
 ];
 
 describe("NewsContainer", () => {
-  it("fetches news and renders the first headline", async () => {
-    const mockedGetMarketNews = vi.mocked(getMarketNews);
-    mockedGetMarketNews.mockResolvedValueOnce(mockArticles);
+  it("renders the news grid with initial articles", async () => {
+    render(<InfiniteNewsGrid initialNews={mockArticles} category="general" />);
 
-    const component = await NewsContainer();
-    render(component);
-
-    expect(getMarketNews).toHaveBeenCalledWith("general");
-    expect(
-      await screen.findByText(/chipmakers lead gains/i)
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/chipmakers lead gains/i)).toBeInTheDocument();
+    });
   });
 });

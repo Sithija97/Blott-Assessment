@@ -30,3 +30,14 @@ vi.mock("next/link", () => {
   Link.displayName = "NextLinkMock";
   return { __esModule: true, default: Link };
 });
+
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  disconnect() {}
+  observe() {}
+  takeRecords() {
+    return [];
+  }
+  unobserve() {}
+} as any;
